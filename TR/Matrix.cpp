@@ -8,6 +8,13 @@ Vector3 Add(const Vector3& position, const Vector3& velocity) {
 	return result;
 }
 
+Vector2 Add(const Vector2& position, const Vector2& velocity) {
+	Vector2 result;
+	result.x = position.x + velocity.x;
+	result.y = position.y + velocity.y;
+	return result;
+}
+
 Vector3 TransformNormal(const Vector3& velocity, const Matrix4x4& matrix) {
 	Vector3 result{
 		velocity.x * matrix.m[0][0] + velocity.y * matrix.m[1][0] + velocity.z * matrix.m[2][0],

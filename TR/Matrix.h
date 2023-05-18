@@ -1,10 +1,12 @@
 #pragma once
+#include <Vector2.h>
 #include <Vector3.h>
 #include <Matrix4x4.h>
 #define _USE_MATH_DEFINES
 #include <cmath>
 
 Vector3 Add(const Vector3& position, const Vector3& velocity);
+Vector2 Add(const Vector2& position, const Vector2& velocity);
 Vector3 TransformNormal(const Vector3& velocity, const Matrix4x4& matrix);
 
 Matrix4x4 Add(const Matrix4x4& m1, const Matrix4x4& m2);
