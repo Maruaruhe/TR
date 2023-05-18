@@ -19,6 +19,13 @@ void Sphere::Update() {
 		mPosition = Add(mPosition, mVelocity);
 		mVelocity.y += mGravity;
 	}
+	if (mPosition.x <= mRadius) {
+		mVelocity.x *= -1;
+	}
+	else if (mPosition.x >= 1280 - mRadius) {
+		mVelocity.x *= -1;
+	}
+	//
 	if (!mIsShot) {
 		Novice::GetMousePosition(&px, &py);
 	}
@@ -44,8 +51,8 @@ void Sphere::Draw() {
 	}
 }
 void Sphere::Shot() {
-	if (Novice::CheckHitKey(DIK_SPACE)) {
+	if (Novice::CheckHitKey(DIK_SPACE)&&!mIsShot) {
 		mIsShot = true;
-		mVelocity = { (mArrow.x - mPosition.x) / 25,(mArrow.y - mPosition.y) / 25 };
+		mVelocity = { (mArrow.x - mPosition.x) / 20,(mArrow.y - mPosition.y) / 20 };
 	}
 }
