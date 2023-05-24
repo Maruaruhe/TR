@@ -5,13 +5,17 @@
 class Sphere
 {
 public:
-	void Init();
+	void Initialize();
 	void Update();
 	void Draw();
 	void Shot();
 
 	Vector2 mPosition;
+	Vector2 mBeforePosition;
+	Vector2 mCurrentPosition;
+	Vector2 mDirtPosition;
 	Vector2 mVelocity;
+	Vector2 mDirtVelocity;
 	float mRadius;
 	float mPower;
 	Vector2 mArrow;
@@ -19,5 +23,7 @@ public:
 	int py;
 	float mGravity;
 	bool mIsShot;
+	bool mIsHit;
+	int mFloor;
 };
 

@@ -13,7 +13,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char keys[256] = {0};
 	char preKeys[256] = {0};
 
-	sphere.Init();
+	game->Initialize(sphere, dirt);
+	Vector2 spd;
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -27,7 +28,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
-		sphere.Update();
+		game->Update(sphere, dirt);
+		if (sphere->mIsHit && sphere->mPosition.y!=360.0f) {
+			dirt->mPosition.x = sphere->mDirtPosition.x;
+			dirt->mPosition.y = sphere->mDirtPosition.y + 20;
+			/*spd = game->GetTheta(sphere);
+			dirt->mVelocity.x = spd * 5;
+			dirt->mVelocity.y = -(sphere->mVelocity.y)/3;*/
+			spd = game->GetSpeed(sphere);
+			dirt->mVelocity.x = spd.x;
+			dirt->mVelocity.y = spd.y;
+		}
 		///
 		/// ↑更新処理ここまで
 		///
@@ -35,7 +46,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓描画処理ここから
 		///
-		sphere.Draw();
+		game->Draw(sphere, dirt);
+		Novice::ScreenPrintf(0, 0, "%f", game->GetTheta(sphere));
+		Novice::ScreenPrintf(0, 20, "%f", dirt->mPosition.x);
+		Novice::ScreenPrintf(0, 40, "%f", dirt->mPosition.y);
 		///
 		/// ↑描画処理ここまで
 		///
