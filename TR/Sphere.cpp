@@ -7,7 +7,7 @@ void Sphere::Initialize() {
 	mVelocity = {};
 	mIsShot = false;
 	mRadius = 30.0f;
-	mGravity = 0.4f;
+	mGravity = 0.5f;
 	mFloor = 720 - 30;
 }
 void Sphere::Update() {
