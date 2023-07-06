@@ -67,10 +67,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			dirt1->mVelocity.y = spd.y;
 				dirt2->mVelocity.x = spd.x + num[0];
 				dirt2->mVelocity.y = spd.y - num[1];
-				dirt3->mVelocity.x = spd.x - num[1];
-				dirt3->mVelocity.y = spd.y + num[2];
-				dirt4->mVelocity.x = spd.x - num[2];
-				dirt4->mVelocity.y = spd.y + num[3];
+				dirt3->mVelocity.x = spd.x + num[1];
+				dirt3->mVelocity.y = spd.y - num[2];
+				dirt4->mVelocity.x = spd.x + num[2];
+				dirt4->mVelocity.y = spd.y - num[3];
 				dirt5->mVelocity.x = spd.x + num[3];
 				dirt5->mVelocity.y = spd.y - num[0];
 		}
@@ -82,10 +82,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 		game->Draw(sphere, dirt1);
-		dirt2->Draw();
-		dirt3->Draw();
-		dirt4->Draw();
-		dirt5->Draw();
+		if (sphere->mIsHit) {
+			dirt2->Draw();
+			dirt3->Draw();
+			dirt4->Draw();
+			dirt5->Draw();
+		}
 		///
 		/// ↑描画処理ここまで
 		///

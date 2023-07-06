@@ -11,7 +11,9 @@ void GamePlay::Update(Sphere* sphere, Dirt* dirt) {
 
 void GamePlay::Draw(Sphere* sphere, Dirt* dirt) {
 	sphere->Draw();
-	dirt->Draw();
+	if (sphere->mIsHit) {
+		dirt->Draw();
+	}
 }
 
 float GamePlay::GetTheta(Sphere* sphere) {

@@ -39,8 +39,7 @@ void Sphere::Update() {
 			mCurrentPosition.y = mPosition.y;
 			mPosition.y = mFloor - mRadius;
 			mDirtPosition.x = mPosition.x;
-			mDirtPosition.y = mPosition.y;/*
-			mDirtVelocity.x = 2.0f;*/
+			mDirtPosition.y = mPosition.y;
 		}
 	}
 	//

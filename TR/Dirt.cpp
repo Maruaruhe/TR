@@ -2,7 +2,7 @@
 #include <Novice.h>
 
 void Dirt::Initialize() {
-	mPosition = {};
+	mPosition = {-30,0};
 	mVelocity = {};
 	mRadius = 10;
 	mGravity = 0.4f;
