@@ -1,6 +1,6 @@
 #include <Novice.h>
 #include "main.h"
-
+#include <imgui.h>
 const char kWindowTitle[] = "学籍番号";
 
 // Windowsアプリでのエントリーポイント(main関数)
@@ -27,6 +27,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
+		
+		ImGui::Begin();
+		ImGui::End();
+
 		sphere.Update();
 		///
 		/// ↑更新処理ここまで

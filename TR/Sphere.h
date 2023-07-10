@@ -14,9 +14,7 @@ public:
 	Vector2 mVelocity;
 	float mRadius;
 	float mPower;
-	Vector2 mArrow;
-	int px;
-	int py;
+
 	float mGravity;
 	bool mIsShot;
 };
