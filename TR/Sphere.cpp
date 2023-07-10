@@ -7,7 +7,12 @@ void Sphere::Init() {
 	mVelocity = {};
 	mIsShot = false;
 	mRadius = 30.0f;
-	mGravity = 0.4f;
+	mGravity = 9.8f;
+
+	mFirstVelocity.y = -10.0f;
+	mFirstVelocity.x = 3.0f;
+
+	mFlame = 0.0f;
 }
 void Sphere::Update() {
 	//Reset
@@ -15,10 +20,7 @@ void Sphere::Update() {
 		Init();
 	}
 	Shot();
-	if (mIsShot) {
-		mPosition = Add(mPosition, mVelocity);
-		mVelocity.y += mGravity;
-	}
+	Fall();
 }
 void Sphere::Draw() {
 	Novice::DrawEllipse(int(mPosition.x), int(mPosition.y), int(mRadius), int(mRadius), 0.0f, WHITE, kFillModeSolid);
@@ -26,5 +28,13 @@ void Sphere::Draw() {
 void Sphere::Shot() {
 	if (Novice::CheckHitKey(DIK_SPACE)) {
 		mIsShot = true;
+	}
+}
+
+void Sphere::Fall() {
+	if (mIsShot) {
+		mFlame += 1;
+		mPosition = Add(mPosition, mVelocity);
+		mVelocity.y = mGravity * (mFlame / 15.0f) + mFirstVelocity.y;
 	}
 }

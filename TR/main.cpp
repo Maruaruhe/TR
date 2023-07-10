@@ -28,7 +28,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 		
-		ImGui::Begin();
+		ImGui::Begin("Window");
+		ImGui::DragFloat("Gravity", &sphere.mGravity, 0.01f);
+		ImGui::DragFloat("FirstVelocityY", &sphere.mFirstVelocity.y, 0.01f);
+		ImGui::DragFloat("VelocityX", &sphere.mVelocity.x, 0.01f);
 		ImGui::End();
 
 		sphere.Update();
@@ -40,6 +43,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 		sphere.Draw();
+
+		Novice::ScreenPrintf(0, 0, "spd:%f", sphere.mVelocity.y);
 		///
 		/// ↑描画処理ここまで
 		///
