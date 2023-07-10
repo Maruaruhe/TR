@@ -1,6 +1,8 @@
 #include <Novice.h>
 #include "main.h"
 
+#include <imgui.h>
+
 const char kWindowTitle[] = "学籍番号";
 
 // Windowsアプリでのエントリーポイント(main関数)
@@ -28,6 +30,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 		sphere.Update();
+
+
+		ImGui::Begin("Window");
+		ImGui::DragFloat("Gravity", &Gravity, 0.01f);
+		ImGui::DragFloat("Mass", &Mass, 0.01f);
+		ImGui::DragFloat("velo", &sphere.mFirstVelocity.y, 0.01f);
+		ImGui::End();
+
+		sphere.setGravity(Gravity);
+		sphere.setMass(Mass);
 		///
 		/// ↑更新処理ここまで
 		///
@@ -36,6 +48,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 		sphere.Draw();
+
+		Novice::ScreenPrintf(0, 0, "%f", sphere.mFlame);
+		Novice::ScreenPrintf(0, 20, "addpos:%f", sphere.mAddPosition.y);
+		Novice::ScreenPrintf(0, 40, "firstspeed:%f", sphere.mFirstVelocity.y);
 		///
 		/// ↑描画処理ここまで
 		///

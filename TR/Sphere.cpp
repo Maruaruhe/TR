@@ -3,11 +3,19 @@
 #include "Matrix.h"
 
 void Sphere::Init() {
-	mPosition = { 640.0f, 360.0f };
-	mVelocity = {};
+	mFirstPosition = { 640.0f, 360.0f };
+	mAddPosition = { 3.0f, 0.0f };
+	mPosition = mFirstPosition;
+	mFirstVelocity = {};
+	mFirstVelocity.y = -15.0f;
 	mIsShot = false;
 	mRadius = 30.0f;
-	mGravity = 0.4f;
+
+	mGravity = 9.8f;
+	mMass = 10.0f;
+
+	mFlame = 0.0f;
+	mSecond = 0;
 }
 void Sphere::Update() {
 	//Reset
@@ -15,37 +23,49 @@ void Sphere::Update() {
 		Init();
 	}
 	Shot();
-	if (mIsShot) {
-		mPosition = Add(mPosition, mVelocity);
-		mVelocity.y += mGravity;
-	}
-	if (!mIsShot) {
-		Novice::GetMousePosition(&px, &py);
-	}
-	//x
-	if (px > mPosition.x) {
-		mArrow.x = mPosition.x - (px - mPosition.x);
-	}
-	else {
-		mArrow.x = mPosition.x + (mPosition.x - px);
-	}
-	//y
-	if (py > mPosition.y) {
-		mArrow.y = mPosition.y - (py - mPosition.y);
-	}else {
-		mArrow.y = mPosition.y + (mPosition.y - py);
-	}
+	mPosition = Add(mPosition, mAddPosition);
 }
 void Sphere::Draw() {
 	Novice::DrawEllipse(int(mPosition.x), int(mPosition.y), int(mRadius), int(mRadius), 0.0f, WHITE, kFillModeSolid);
 	if (!mIsShot) {
-		Novice::DrawLine(int(mPosition.x), int(mPosition.y), px, py, WHITE);
-		Novice::DrawLine(int(mPosition.x), int(mPosition.y), int(mArrow.x), int(mArrow.y), WHITE);
+		Novice::DrawLine(int(mFirstPosition.x), int(mFirstPosition.y), px, py, WHITE);
+		Novice::DrawLine(int(mFirstPosition.x), int(mFirstPosition.y), int(mArrow.x), int(mArrow.y), WHITE);
 	}
 }
 void Sphere::Shot() {
 	if (Novice::CheckHitKey(DIK_SPACE)) {
 		mIsShot = true;
-		mVelocity = { (mArrow.x - mPosition.x) / 25,(mArrow.y - mPosition.y) / 25 };
+		/*mFirstVelocity = { (mArrow.x - mAddPosition.x) / 25,(mArrow.y - mAddPosition.y) / 25 };*/
+		/*mFirstVelocity.y = -15.0f;*/
 	}
+	if (mIsShot) {
+
+		mFlame += 1.0f;
+		/*if (mFlame % 60 == 0) {
+			mSecond += 1;
+		}*/
+		//ˆÊ’u
+		mAddPosition.y = (mFirstVelocity.y * (mFlame/60.0f)) + (0.5f * mGravity * (mFlame/60.0f) * (mFlame/60.0f));
+	}
+	if (!mIsShot) {
+		Novice::GetMousePosition(&px, &py);
+	}
+	//x
+	if (px > mFirstPosition.x) {
+		mArrow.x = mFirstPosition.x - (px - mFirstPosition.x);
+	}
+	else {
+		mArrow.x = mFirstPosition.x + (mFirstPosition.x - px);
+	}
+	//y
+	if (py > mFirstPosition.y) {
+		mArrow.y = mFirstPosition.y - (py - mFirstPosition.y);
+	}
+	else {
+		mArrow.y = mFirstPosition.y + (mFirstPosition.y - py);
+	}
+}
+
+void Sphere::FreeFall() {
+
 }
