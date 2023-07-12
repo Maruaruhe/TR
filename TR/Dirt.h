@@ -30,5 +30,8 @@ public:
 
 	float mFlame;
 	int mSecond;
+
+private:
+
 };
 

@@ -16,6 +16,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	char preKeys[256] = {0};
 
 	sphere.Init();
+	dirt.Init();
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -30,16 +31,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓更新処理ここから
 		///
 		sphere.Update();
+		dirt.Update();
 
 
 		ImGui::Begin("Window");
 		ImGui::DragFloat("Gravity", &Gravity, 0.01f);
-		ImGui::DragFloat("Mass", &Mass, 0.01f);
+		ImGui::DragFloat("SphereMass", &sphereMass, 0.01f);
+		ImGui::DragFloat("DirtMass", &dirtMass, 0.01f);
 		ImGui::DragFloat("velo", &sphere.mFirstVelocity.y, 0.01f);
 		ImGui::End();
 
 		sphere.setGravity(Gravity);
-		sphere.setMass(Mass);
+		dirt.setGravity(Gravity);
+
+		sphere.setMass(sphereMass);
+		dirt.setMass(dirtMass);
 		///
 		/// ↑更新処理ここまで
 		///
@@ -48,6 +54,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		/// ↓描画処理ここから
 		///
 		sphere.Draw();
+		dirt.Draw();
 
 		Novice::ScreenPrintf(0, 0, "%f", sphere.mFlame);
 		Novice::ScreenPrintf(0, 20, "addpos:%f", sphere.mAddPosition.y);
