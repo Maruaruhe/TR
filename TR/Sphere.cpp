@@ -59,7 +59,7 @@ void Sphere::Shot() {
 void Sphere::Fall() {
 	if (mIsShot) {
 		mFlame += 1;
-		mPosition = Add(mPosition, mVelocity);
 		mVelocity.y = mGravity * (mFlame / 15.0f) + mFirstVelocity.y;
+		mPosition = Add(mPosition, mVelocity);
 	}
 }
