@@ -6,6 +6,7 @@ void Sphere::Init() {
 	mFirstPosition = { 640.0f, 360.0f };
 	mAddPosition = { 3.0f, 0.0f };
 	mPosition = mFirstPosition;
+	mVelocity = {};
 	mFirstVelocity = {};
 	mFirstVelocity.y = -15.0f;
 	mIsShot = false;
@@ -23,7 +24,7 @@ void Sphere::Update() {
 		Init();
 	}
 	Shot();
-	mPosition = Add(mPosition, mAddPosition);
+	Fall();
 }
 void Sphere::Draw() {
 	Novice::DrawEllipse(int(mPosition.x), int(mPosition.y), int(mRadius), int(mRadius), 0.0f, WHITE, kFillModeSolid);
@@ -35,17 +36,6 @@ void Sphere::Draw() {
 void Sphere::Shot() {
 	if (Novice::CheckHitKey(DIK_SPACE)) {
 		mIsShot = true;
-		/*mFirstVelocity = { (mArrow.x - mAddPosition.x) / 25,(mArrow.y - mAddPosition.y) / 25 };*/
-		/*mFirstVelocity.y = -15.0f;*/
-	}
-	if (mIsShot) {
-
-		mFlame += 1.0f;
-		/*if (mFlame % 60 == 0) {
-			mSecond += 1;
-		}*/
-		//ˆÊ’u
-		mAddPosition.y = (mFirstVelocity.y * (mFlame/60.0f)) + (0.5f * mGravity * (mFlame/60.0f) * (mFlame/60.0f));
 	}
 	if (!mIsShot) {
 		Novice::GetMousePosition(&px, &py);
@@ -66,6 +56,10 @@ void Sphere::Shot() {
 	}
 }
 
-void Sphere::FreeFall() {
-
+void Sphere::Fall() {
+	if (mIsShot) {
+		mFlame += 1;
+		mPosition = Add(mPosition, mVelocity);
+		mVelocity.y = mGravity * (mFlame / 15.0f) + mFirstVelocity.y;
+	}
 }
